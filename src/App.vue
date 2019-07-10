@@ -1,5 +1,5 @@
 <template>
-  <div class="container" :class={desktop}>
+  <div class="container" :class="{desktop}">
     <div class="logo"></div>
     <div class="upper">
       <a href="https://play.google.com/store/apps/details?id=com.joyours.shankm" class="google"></a>
@@ -13,7 +13,7 @@
           <div class="text2">ဂိမ္းကိုေဒါင္းလုပ္ၿပီးဘိုးနပ္လဲရမည္။</div>
           <div class="layout3">
             <div class="code">{{code}}</div>
-            <div class="button" @click="handleCopyBtnClicked()">ပံုတူ</div>
+            <!--<div class="button" @click="handleCopyBtnClicked()"></div>-->
           </div>
         </div>
       </div>
@@ -81,11 +81,10 @@ export default {
 
   .image('./assets/bg.png');
   background-position: top;
-  height: calc(100vw / 640 * 1542 * .94);
-  min-height: 100vh;
+  height: calc(100vw / 640 * 1542 * .92);
   padding-top: 42.5%;
   box-sizing: border-box;
-  overflow-x: hidden;
+  overflow: hidden;
 
   .logo {
     position: absolute;
@@ -122,11 +121,11 @@ export default {
 
     .text {
       .image('./assets/text2.png');
-      @width: 40vw;
+      @width: 50vw;
       @height: calc(@width / 285 * 62);
       width: @width;
       height: @height;
-      margin: calc(@height / 2) 0;
+      margin: 5% 0;
     }
     .layout {
       @width: 80vw;
@@ -197,6 +196,7 @@ export default {
       overflow-y: hidden;
 
       .el-carousel__item {
+        &:not(.is-in-stage) {z-index: -1;}
         &:nth-of-type(1) .item {.image('./assets/shop1.jpg');}
         &:nth-of-type(2) .item {.image('./assets/shop2.jpg');}
         &:nth-of-type(3) .item {.image('./assets/shop3.jpg');}
@@ -215,22 +215,24 @@ export default {
   }
   &.desktop {
     background-image: url('./assets/bg@HD.png');
-    height: calc(100vw / 1920 * 4013 * .94);
+    height: calc(100vw / 1920 * 4013 * .9);
+    padding-top: 40%;
 
-    .logo {
-      .image('./assets/logo@HD.png');
-      @width: calc(100vw / 6);
-      width: @width;
-      height: calc(@width / 128 * 58);
-    }
+    .logo {.image('./assets/logo@HD.png');}
     .upper {
       .android {.image('./assets/download-android@HD.png');}
       .google {.image('./assets/download-google@HD.png');}
     }
     .middle {
       .image('./assets/bg-2.png');
-
-      .text {.image('./assets/text@HD.png');}
+      
+      .text {
+        .image('./assets/text@HD.png');
+        @width: 40vw;
+        @height: calc(@width / 285 * 62);
+        width: @width;
+        height: @height;
+      }
       .layout {
         .gift {.image('./assets/gift@HD.png');}
         .layout2 {
@@ -239,7 +241,7 @@ export default {
             .button {
               font-size: 6.5rem !important;
               .image('./assets/button@HD.png');
-              }
+            }
           }
         }
       }
@@ -249,13 +251,72 @@ export default {
       }
     }
     .lower {
-      .text {.image('./assets/text2@HD.png');}
+      .text {
+        @width: 60vw;
+        @height: calc(@width / 461 * 61);
+        width: @width;
+        height: @height;
+        margin: calc(@height / 2) auto;
+        .image('./assets/text2@HD.png');
+      }
       .carousel {
         .item {
           @width: 30vw;
           width: @width;
           height: calc(@width / 1242 * 2208);
         }
+      }
+    }
+  }
+}
+@media screen and (min-width: 1200px) {
+  .container.desktop {
+    @width: 1200px;
+    width: @width;
+    height: calc(@width / 1920 * 4013 * .9);
+    margin: 0 auto;
+    position: relative;
+    padding-top: 465px;
+
+    .logo {
+      width: calc(@width / 6);
+      height: calc(@width / 6 / 128 * 58);
+    }
+    .upper {
+      a {
+        width: calc(@width / 4);
+        height: calc(@width / 4 / 163 * 55);
+      }
+    }
+    .middle {
+      width: 100%;
+      height: calc(@width / 639 * 375);
+
+      .text {
+        @text-width: calc(@width * .4);
+        @height: calc(@text-width / 285 * 62);
+        width: @text-width;
+        height: @height;
+        margin: calc(@height / 2) 0;
+      }
+      .layout {
+        width: 85%;
+        
+        .gift {
+          width: calc(@width * .2);
+          height: calc(@width * .2 / 150 * 159);
+        }
+      }
+    }
+    .lower {
+      .text {
+        width: calc(@width * .6);
+        height: calc(@width * .6 / 461 * 61);
+        margin: calc(calc(@width * .6 / 461 * 61) / 2) auto;
+        
+      }
+      .carousel {
+        .item {width: calc(@width * .3);}
       }
     }
   }
